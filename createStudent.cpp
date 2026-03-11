@@ -2,6 +2,8 @@
 #include <cstring>
 #include <iostream>
 
+using namespace std;
+
 struct Student {
     int id;
     char name[50];
@@ -17,20 +19,21 @@ int main() {
         {105, "Ethan", 23}
     };
 
-    FILE* fp = std::fopen("students.db", "wb");
+    FILE* fp = fopen("students.db", "wb");
     if (!fp) {
-        std::perror("Failed to open students.db for writing");
+        perror("Failed to open students.db for writing");
         return 1;
     }
 
-    size_t written = std::fwrite(students, sizeof(Student), 5, fp);
+    size_t written = fwrite(students, sizeof(Student), 5, fp);
     if (written != 5) {
-        std::perror("Failed to write all student records");
-        std::fclose(fp);
+        perror("Failed to write all student records");
+        fclose(fp);
         return 1;
     }
 
-    std::fclose(fp);
-    std::cout << "students.db created with 5 records." << std::endl;
+    fclose(fp);
+    cout << "students.db created with 5 records." << endl;
+
     return 0;
 }
